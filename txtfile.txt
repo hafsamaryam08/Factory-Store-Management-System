@@ -1,0 +1,219 @@
+create database factory_management_system;
+use factory_management_system;
+
+CREATE TABLE Employee (
+    ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Address VARCHAR(50) NOT NULL,
+    Designation VARCHAR(50) NOT NULL,
+    Salary DECIMAL(10, 2) NOT NULL,
+    DOJ DATE NOT NULL,
+    Absences INT NOT NULL,
+    Received_Salary DECIMAL(10, 2) NOT NULL
+);
+
+INSERT INTO Employee (Name, Address, Designation, Salary, DOJ, Absences, Received_Salary) 
+VALUES 
+    ('Hafsa Maryam', 'Jail Road, Bwn', 'Manager', 60000.00, '2024-01-15', 0, 60000.00),
+    ('Mahnoor Mudassar', 'Punjab Society, Lahore', 'Assistant Manager', 50000.00, '2024-02-10', 0, 50000.00),
+    ('Komal Asawar', 'A block, Bwp', 'Sales Executive', 40000.00, '2024-03-05', 0, 40000.00),
+    ('Zunaisha Malik', 'B block, Multan', 'Accountant', 45000.00, '2024-04-20', 0, 45000.00),
+    ('Inshrah Maryam', 'C block, Multan', 'Production Supervisor', 38000.00, '2024-05-08', 0, 38000.00),
+    ('Naeem-ur-Rehman', 'Farid town, Swl', 'Quality Control Inspector', 35000.00, '2024-06-12', 0, 35000.00),
+    ('Abdul Rafey', 'D block Multan', 'Warehouse Manager', 42000.00, '2024-07-30', 0, 42000.00);
+
+SELECT * FROM factory_management_system.employee;
+
+CREATE TABLE Customer (
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Address VARCHAR(50) NOT NULL,
+    Purchase_Items VARCHAR(50),
+    Quantity INT NOT NULL,
+    Phone_No VARCHAR(50) NOT NULL,
+    Product_Amount DOUBLE NOT NULL,
+    Pay_Amount DOUBLE NOT NULL,
+    Date DATE,
+    Remaining_Amount DOUBLE,
+    PRIMARY KEY (ID)
+);
+
+INSERT INTO Customer (Name, Address, Purchase_Items, Quantity, Phone_No, Product_Amount, Pay_Amount, Date, Remaining_Amount) 
+VALUES 
+    ('Sana', 'abc Town', 'Pasta', 2, '123-456-7890', 5.00, 10.00, '2024-05-12', 0),
+    ('Amna', 'xyz City', 'Burger', 3, '987-654-3210', 3.00, 9.00, '2024-05-13', 0),
+    ('Abdullah', 'B  block, Karachi', 'Fruit Salad', 1, '555-555-5555', 2.00, 2.50, '2024-05-14', 0),
+    ('Khaqan', 'New City, Okara', 'Lasagna', 2, '111-222-3333', 4.00, 8.00, '2024-05-15', 0),
+    ('Faizan', 'DHA, Lahore', 'Pizza', 1, '444-444-4444', 6.00, 6.50, '2024-05-16', 0);
+
+SELECT * FROM factory_management_system.customer;
+
+CREATE TABLE Purchase (
+    Serial_No INT NOT NULL AUTO_INCREMENT,
+    Salt INT NOT NULL,
+    Sugar INT NOT NULL,
+    Flour INT NOT NULL,
+    Oil INT NOT NULL,
+    Yeast INT NOT NULL,
+    Packing_reel INT,
+    Cartoon_Box INT,
+    Packing_Shopper INT,
+    Sum INT,
+    PRIMARY KEY (Serial_No)
+);
+
+INSERT INTO Purchase (Salt, Sugar, Flour, Oil, Yeast, Packing_reel, Cartoon_Box, Packing_Shopper, Sum)
+VALUES 
+    (10, 20, 30, 5, 2, 3, 4, 2, 76),
+    (15, 25, 35, 8, 3, 4, 5, 3, 98),
+    (8, 18, 28, 4, 1, 2, 3, 1, 65),
+    (20, 30, 40, 10, 4, 5, 6, 4, 119),
+    (12, 22, 32, 6, 2, 3, 4, 2, 83);
+
+SELECT * FROM factory_management_system.purchase;
+
+CREATE TABLE Sale_Man (
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Address VARCHAR(50) NOT NULL,
+    Purchase_Items VARCHAR(50),
+    Quantity INT NOT NULL,
+    Phone_No VARCHAR(50) NOT NULL,
+    Sum DOUBLE NOT NULL,
+    Pay_Amount DOUBLE NOT NULL,
+    Date DATE,
+    Remaining_Amount DOUBLE,
+    PRIMARY KEY (ID)
+);
+
+INSERT INTO Sale_Man (Name, Address, Purchase_Items, Quantity, Phone_No, Sum, Pay_Amount, Date, Remaining_Amount)
+VALUES 
+    ('Abdul Rehman', 'Islamabad', 'Bread', 10, '123-456-7890', 50.00, 50.00, '2024-05-12', 0),
+    ('Arslan', 'Bahawalpur', 'Noodles', 15, '987-654-3210', 75.00, 75.00, '2024-05-13', 0),
+    ('Fatima', 'Lahore', 'Pasta', 20, '555-555-5555', 100.00, 100.00, '2024-05-14', 0),
+    ('Sana', 'Islamabad', 'Brownies', 25, '111-222-3333', 125.00, 125.00, '2024-05-15', 0),
+    ('Usman', 'Faisalabad', 'Manchurian', 30, '444-444-4444', 150.00, 150.00, '2024-05-16', 0);
+
+SELECT * FROM factory_management_system.sale_man;
+
+CREATE TABLE Salaries (
+    Serial_No INT AUTO_INCREMENT PRIMARY KEY,
+    Employee_ID INT,
+    Employee_Name VARCHAR(50),
+    Employee_Salary DOUBLE,
+    FOREIGN KEY (Employee_ID) REFERENCES Employee (ID)
+);
+
+INSERT INTO Salaries (Employee_ID, Employee_Name, Employee_Salary)
+VALUES 
+    (1, 'Hafsa Maryam', 59000.00),
+    (2, 'Mahnoor Mudassar', 45000.00),
+    (3, 'Komal Asawar', 47000.00),
+    (4, 'Zunaisha Malik', 48000.00),
+    (5, 'Inshrah Maryam', 55000.00),
+    (6, 'Naeem-ur-Rehman', 52000.00),
+    (7, 'Abdul Rafey', 57000.00);
+
+SELECT * FROM factory_management_system.salaries;
+
+CREATE TABLE Expenses (
+    Serial_No INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Purchase_Product DOUBLE,
+    Renovation DOUBLE,
+    Salaries DOUBLE,
+    Sum_of_Expenses DOUBLE,
+    Date DATE
+);
+
+INSERT INTO Expenses (Purchase_Product, Renovation, Salaries, Sum_of_Expenses, Date)
+VALUES 
+    (500.00, 1000.00, 2000.00, 3500.00, '2024-05-12'),
+    (600.00, 800.00, 2500.00, 3900.00, '2024-05-13'),
+    (700.00, 1200.00, 2200.00, 4100.00, '2024-05-14'),
+    (550.00, 900.00, 2400.00, 3850.00, '2024-05-15'),
+    (650.00, 950.00, 2300.00, 3900.00, '2024-05-16');
+
+SELECT * FROM factory_management_system.expenses;
+
+CREATE TABLE Sales (
+    Serial_No INT AUTO_INCREMENT PRIMARY KEY,
+    Sale_Man_Sales DOUBLE,
+    Customer_Sales DOUBLE
+);
+
+INSERT INTO Sales (Sale_Man_Sales, Customer_Sales)
+VALUES 
+    (1500.00, 2000.00),
+    (1800.00, 2200.00),
+    (1600.00, 2100.00),
+    (1700.00, 2300.00),
+    (1900.00, 2400.00);
+
+SELECT * FROM factory_management_system.sales;
+
+CREATE TABLE Profit (
+    Day INT AUTO_INCREMENT PRIMARY KEY,
+    Expenses DOUBLE,
+    Purchase DOUBLE,
+    Salary DOUBLE,
+    Daily_profit DOUBLE
+);
+
+INSERT INTO Profit (Expenses, Purchase, Salary, Daily_profit)
+VALUES 
+    (500.00, 1000.00, 2000.00, 500.00),
+    (600.00, 1200.00, 2200.00, 800.00),
+    (700.00, 1300.00, 2400.00, 900.00),
+    (550.00, 1100.00, 2100.00, 700.00),
+    (800.00, 1500.00, 2600.00, 1000.00);
+
+SELECT * FROM factory_management_system.profit;
+
+CREATE TABLE Menu (
+    Serial_No INT AUTO_INCREMENT PRIMARY KEY,
+    Salesman_Name VARCHAR(50),
+    Employee_Name VARCHAR(50),
+    Customer_Name VARCHAR(50),
+    Profit DOUBLE NOT NULL,
+    Product DOUBLE NOT NULL,
+    Salaries DOUBLE NOT NULL
+);
+
+INSERT INTO Menu (Salesman_Name, Employee_Name, Customer_Name, Profit, Product, Salaries)
+VALUES 
+    ((SELECT Name FROM Sale_Man WHERE ID = 1),
+    (SELECT Name FROM Employee WHERE ID = 1),
+    (SELECT Name FROM Customer WHERE ID = 1),
+    (SELECT SUM(Daily_profit) FROM Profit WHERE Day = 1),
+    (SELECT SUM(Sum) FROM Purchase WHERE Serial_No = 1),
+    (SELECT Employee_Salary FROM Salaries WHERE Serial_No = 1)),
+    
+    ((SELECT Name FROM Sale_Man WHERE ID = 2),
+    (SELECT Name FROM Employee WHERE ID = 2),
+    (SELECT Name FROM Customer WHERE ID = 2),
+    (SELECT SUM(Daily_profit) FROM Profit WHERE Day = 1),
+    (SELECT SUM(Sum) FROM Purchase WHERE Serial_No = 2),
+    (SELECT Employee_Salary FROM Salaries WHERE Serial_No = 2)),
+    
+    ((SELECT Name FROM Sale_Man WHERE ID = 3),
+    (SELECT Name FROM Employee WHERE ID = 3),
+    (SELECT Name FROM Customer WHERE ID = 3),
+    (SELECT SUM(Daily_profit) FROM Profit WHERE Day = 1),
+    (SELECT SUM(Sum) FROM Purchase WHERE Serial_No = 3),
+    (SELECT Employee_Salary FROM Salaries WHERE Serial_No = 3)),
+    
+    ((SELECT Name FROM Sale_Man WHERE ID = 4),
+    (SELECT Name FROM Employee WHERE ID = 4),
+    (SELECT Name FROM Customer WHERE ID = 4),
+    (SELECT SUM(Daily_profit) FROM Profit WHERE Day = 1),
+    (SELECT SUM(Sum) FROM Purchase WHERE Serial_No = 4),
+    (SELECT Employee_Salary FROM Salaries WHERE Serial_No = 4)),
+    
+    ((SELECT Name FROM Sale_Man WHERE ID = 5),
+    (SELECT Name FROM Employee WHERE ID = 5),
+    (SELECT Name FROM Customer WHERE ID = 5),
+    (SELECT SUM(Daily_profit) FROM Profit WHERE Day = 1),
+    (SELECT SUM(Sum) FROM Purchase WHERE Serial_No = 5),
+    (SELECT Employee_Salary FROM Salaries WHERE Serial_No = 5));
+
+SELECT * FROM factory_management_system.menu;
